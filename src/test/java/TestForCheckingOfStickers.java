@@ -24,24 +24,24 @@ public class TestForCheckingOfStickers {
 
     WebElement mostPopular = driver.findElement(By.cssSelector("#box-most-popular"));
     WebElement ducksInMostPopular=mostPopular.findElement(By.xpath("//ul[@class='listing-wrapper products']"));
-    List<WebElement> list = ducksInMostPopular.findElements(By.tagName("li"));
+    List<WebElement> list = ducksInMostPopular.findElements(By.xpath("//li[contains(@class, 'product')]"));
     for (int i=0; i<list.size();i++){
         list.get(i).findElement(By.xpath("//div[contains(@class, 'sticker')]")).isDisplayed();
     }
 
-    WebElement campaigns=driver.findElement(By.cssSelector("#box-campaigns"));
-    WebElement ducksInCampaigns = campaigns.findElement((By.xpath("//ul[@class='listing-wrapper products']")));
-    List<WebElement> listCampaigns = ducksInCampaigns.findElements((By.tagName("li")));
+   WebElement campaigns=driver.findElement(By.cssSelector("#box-campaigns"));
+   WebElement ducksInCampaigns = campaigns.findElement((By.xpath("//ul[@class='listing-wrapper products']")));
+   List<WebElement> listCampaigns = ducksInCampaigns.findElements((By.xpath("//li[contains(@class, 'product')]")));
 
-    for (int i=0; i<list.size(); i++){
-        list.get(i).findElement(By.xpath("//div[contains(@class, 'sticker')]")).isDisplayed();}
+   for (int i=0; i<list.size(); i++){
+       list.get(i).findElement(By.xpath("//div[contains(@class, 'sticker')]")).isDisplayed();}
 
-    WebElement latestProducts=driver.findElement(By.cssSelector("#box-latest-products"));
-    WebElement ducksInLatestProducts = latestProducts.findElement((By.xpath("//ul[@class='listing-wrapper products']")));
-    List<WebElement> listLatestProducts = ducksInLatestProducts.findElements((By.tagName("li")));
-    for (int i=0; i<list.size(); i++){
-        list.get(i).findElement(By.xpath("//div[contains(@class, 'sticker')]")).isDisplayed();}
-    }
+   WebElement latestProducts=driver.findElement(By.cssSelector("#box-latest-products"));
+   WebElement ducksInLatestProducts = latestProducts.findElement((By.xpath("//ul[@class='listing-wrapper products']")));
+   List<WebElement> listLatestProducts = ducksInLatestProducts.findElements((By.xpath("//li[contains(@class, 'product')]")));
+   for (int i=0; i<list.size(); i++){
+      list.get(i).findElement(By.xpath("//div[contains(@class, 'sticker')]")).isDisplayed();}
+   }
 
     @After
     public void stop(){
