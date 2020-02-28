@@ -22,28 +22,15 @@ public class TestForCheckingOfStickers {
     public void myTest(){
     driver.get("http://localhost/litecart/en/");
 
-    WebElement boxMostPopular = driver.findElement(By.cssSelector("div#box-most-popular ul"));
-    List<WebElement> listPopular = boxMostPopular.findElements(By.tagName("li"));
-    for (int i=0; i<listPopular.size();i++){
-        Boolean isOneSticker=listPopular.get(i).findElements(By.xpath(".//div[contains(@class, 'sticker')]")).size()==1;
-        System.out.println(isOneSticker);
-    }
-
-
-   WebElement campaigns=driver.findElement(By.cssSelector("div#box-campaigns ul"));
-   List<WebElement> listDucksInCampaigns = campaigns.findElements(By.tagName("li"));
-   for(int i=0; i<listDucksInCampaigns.size();i++){
-       Boolean isOneSticker=listDucksInCampaigns.get(i).findElements(By.xpath(".//div[contains(@class, 'sticker')]")).size()==1;
-       System.out.println(isOneSticker);
-   }
-
-   WebElement latestProducts=driver.findElement(By.cssSelector("div#box-latest-products ul"));
-   List<WebElement> listLatestProducts = latestProducts.findElements(By.tagName("li"));
-   for(int i=0; i<listLatestProducts.size();i++){
-       Boolean isOneSticker=listLatestProducts.get(i).findElements(By.xpath(".//div[contains(@class, 'sticker')]")).size()==1;
-       System.out.println(isOneSticker);
+    List<WebElement> products=driver.findElements(By.cssSelector(".product"));
+        for (int i=0; i<products.size();i++){
+            Boolean isOneSticker=products.get(i).findElements(By.xpath(".//div[contains(@class, 'sticker')]")).size()==1;
+            System.out.println(isOneSticker);
         }
-   }
+
+
+       }
+   
 
 
     @After
