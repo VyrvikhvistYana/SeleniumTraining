@@ -29,10 +29,8 @@ public class TestToCheckAlphabeticalOrder {
         driver.findElement(By.name("login")).click();
         driver.findElement(By.linkText("Countries")).click();
 
-        WebElement form = driver.findElement(By.cssSelector("[name=countries_form"));
-        WebElement table = form.findElement(By.cssSelector(".dataTable"));
-        List<WebElement> links = table.findElements(By.xpath("//tr[@class='row']//td[5]//a"));
 
+        List<WebElement> links = driver.findElements(By.cssSelector(".dataTable tbody .row td:nth-child(5)"));
         List<String> namesOfCountries = new ArrayList<String>();
         for (WebElement e : links) {
             namesOfCountries.add(e.getAttribute("textContent"));
@@ -40,37 +38,25 @@ public class TestToCheckAlphabeticalOrder {
         boolean sorted = Ordering.natural().isOrdered(namesOfCountries);
         System.out.println(sorted);
 
+        List<WebElement> listOfQuantityOfZones=driver.findElements(By.cssSelector(".dataTable tbody .row td:nth-child(6)"));
 
-
-        int size=1;
-        List<WebElement> rowElements = null;
-        for (int i = 0; i < size; ++i) {
-            rowElements = driver.findElements(By.xpath("//tr[@class='row']//td[6]"));
-            size=rowElements.size();
-            if (Integer.parseInt(rowElements.get(i).getAttribute("innerText")) == 0) {
-                continue;}
-            else{
-                links.get(i).click();
-                List<WebElement> listOfRows =
-                        driver.findElements(By.xpath
-                                ("//table[@id='table-zones']//tr//td[3]//input[contains(@type, 'hidden')]"));
-
-                List<String> listOfGeozones = new ArrayList<String>();
-                for (WebElement e : listOfRows) {
-                    listOfGeozones.add(e.getAttribute("textContent"));
+        for(int i=0; i<listOfQuantityOfZones.size();i++){
+            List<WebElement> listOfLinksToEdit=driver.findElements(By.cssSelector("a[title='Edit']"));
+            listOfQuantityOfZones=driver.findElements(By.cssSelector(".dataTable tbody .row td:nth-child(6)"));
+            if(Integer.parseInt(listOfQuantityOfZones.get(i).getText())>0){
+                listOfLinksToEdit.get(i).click();
+                List<WebElement> listOfZonesOfCountry=driver.findElements(By.cssSelector("table#table-zones td:nth-child(3) input[type='hidden']"));
+                List<String> geoZones = new ArrayList<String>();
+                for (WebElement e : listOfZonesOfCountry) {
+                    geoZones.add(e.getAttribute("textContent"));
                 }
-                boolean sortedGeoZones = Ordering.natural().isOrdered(listOfGeozones);
+                boolean sortedGeoZones = Ordering.natural().isOrdered(geoZones);
                 System.out.println(sortedGeoZones);
-                i=rowElements.indexOf(rowElements.get(i));
-                size=size-i;
-                System.out.println(size);
-                System.out.println(i);
                 driver.navigate().back();
             }
-
+            else{ continue;}
         }
-    }
-
+        }
 
     @After
     public void stop(){

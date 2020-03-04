@@ -28,31 +28,21 @@ public class TestToCheckGeoZonesAlphabeticalOrder {
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.name("password"))).sendKeys("admin");
         driver.findElement(By.name("login")).click();
         driver.findElement(By.linkText("Geo Zones")).click();
-        driver.findElement(By.linkText("Canada")).click();
 
-        List<WebElement> listCanada = driver.findElements(By.xpath("//tr//td[3]//select[contains(@name, 'zone_code')]//option[@selected='selected']"));
-        List<String> geoZonesCanada = new ArrayList<String>();
-        for (WebElement e : listCanada) {
-            geoZonesCanada.add(e.getAttribute("textContent"));
+        List<WebElement> listOfCountries=driver.findElements(By.cssSelector("a[title='Edit']"));
+    for(int i=0; i<listOfCountries.size(); i++)
+{       listOfCountries=driver.findElements(By.cssSelector("a[title='Edit']"));
+        System.out.println(listOfCountries.size());
+        listOfCountries.get(i).click();
+        wait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.xpath("//tr//td[3]//select[contains(@name, 'zone_code')]//option[@selected='selected']")));
+        List<WebElement> listOfZones = driver.findElements(By.xpath("//tr//td[3]//select[contains(@name, 'zone_code')]//option[@selected='selected']"));
+        List<String> geoZones = new ArrayList<String>();
+        for (WebElement e : listOfZones) {
+            geoZones.add(e.getAttribute("textContent"));
         }
-
-        boolean sortedCanada = Ordering.natural().isOrdered(geoZonesCanada);
-        System.out.println(sortedCanada);
-
-        driver.navigate().back();
-        driver.findElement(By.linkText("United States of America")).click();
-
-
-        List<WebElement> listUSA = driver.findElements(By.xpath("//tr//td[3]//select[contains(@name, 'zone_code')]//option[@selected='selected']"));
-        List<String> geoZonesUSA = new ArrayList<String>();
-        for (WebElement e : listUSA) {
-            geoZonesUSA.add(e.getAttribute("textContent"));
-        }
-
-        boolean sortedUSA = Ordering.natural().isOrdered(geoZonesUSA);
-        System.out.println(sortedUSA);
-
-
+        boolean sorted = Ordering.natural().isOrdered(geoZones);
+        System.out.println(sorted);
+        driver.navigate().back();}
     }
     @After
     public void stop(){
